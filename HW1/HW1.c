@@ -35,7 +35,7 @@ typedef struct bmpheader
 int main()
 {
      FILE * lenaimage =fopen("lena.bmp","rb");
-     FILE * output = fopen("output1.bmp","wb");
+     FILE * output = fopen("output.bmp","wb");
      FILE * waterimage = fopen("water.bmp", "rb");
      if(!lenaimage||!waterimage) {
         printf("read bmp fail\n");
