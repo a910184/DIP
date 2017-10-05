@@ -95,8 +95,6 @@ uint8_t *gray(bmp *image,uint8_t* data){ // 相鄰3個照公式相加後取代RG
     for(i=0;i<(image->height);i++){
         for ( j = 0; j < (image->width); j++) {
             graygrid= (299*data[(i*(image->height)+j)*((image->bits_per_pixel)/8)+roffset]+587*data[(i*(image->height)+j)*((image->bits_per_pixel)/8)+goffset]+114*data[(i*(image->height)+j)*((image->bits_per_pixel)/8)+boffset])/1000;
-            // if(graygrid>256)
-            // {graygrid = 255;}
             his[graygrid]++;
             data[(i*(image->height)+j)*((image->bits_per_pixel)/8)+roffset]=graygrid;
             data[(i*(image->height)+j)*((image->bits_per_pixel)/8)+goffset]=graygrid;
