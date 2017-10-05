@@ -34,7 +34,7 @@ typedef struct bmpheader
 
 int main()
 {
-     FILE * lenaimage =fopen("lena_drink_reverse.bmp","rb");
+     FILE * lenaimage =fopen("lena_reverse_gray.bmp","rb");
      FILE * output = fopen("output.bmp","wb");
      FILE * waterimage = fopen("water.bmp", "rb");
      if(!lenaimage||!waterimage) {
@@ -90,20 +90,25 @@ return lenadata;
 uint8_t *gray(bmp *image,uint8_t* data){ // 相鄰3個照公式相加後取代RGB   graygrid = 0.299*R + 0.587*G + 0.114*B
     uint8_t  graygrid;
     FILE * histo = fopen("histogram.txt","w");
-    int i ,j;
-
+    int i ,j,k;
+    int his[256]={0};
     for(i=0;i<(image->height);i++){
         for ( j = 0; j < (image->width); j++) {
             graygrid= (299*data[(i*(image->height)+j)*((image->bits_per_pixel)/8)+roffset]+587*data[(i*(image->height)+j)*((image->bits_per_pixel)/8)+goffset]+114*data[(i*(image->height)+j)*((image->bits_per_pixel)/8)+boffset])/1000;
-            fprintf(histo, "%d,",(uint8_t)graygrid);
+            // if(graygrid>256)
+            // {graygrid = 255;}
+            his[graygrid]++;
             data[(i*(image->height)+j)*((image->bits_per_pixel)/8)+roffset]=graygrid;
             data[(i*(image->height)+j)*((image->bits_per_pixel)/8)+goffset]=graygrid;
             data[(i*(image->height)+j)*((image->bits_per_pixel)/8)+boffset]=graygrid;
 
         }
-        fprintf(histo, "\n" );
+
     }
 
+    for ( i = 0; i < 256; i++) {
+        fprintf(histo, "%d\n",his[i]);
+    }
     printf("gray end\n" );
 
      return data;
