@@ -34,7 +34,7 @@ typedef struct bmpheader
 
 int main()
 {
-     FILE * lenaimage =fopen("lena_reverse_gray.bmp","rb");
+     FILE * lenaimage =fopen("lena_reverse_drink.bmp","rb");
      FILE * output = fopen("output.bmp","wb");
      FILE * waterimage = fopen("water.bmp", "rb");
      if(!lenaimage||!waterimage) {
@@ -76,7 +76,7 @@ return 1;
 }
 uint8_t *cover(bmp *lena,uint8_t*lenadata,bmp *water,uint8_t*waterdata){
 int i ,j;
-    for(i=0;i<154;i++){
+    for(i=14;i<168;i++){
         for ( j =52; j < 130; j++) {
             lenadata[((i+4)*512+j+60)*3+roffset]=waterdata[(i*180+j)*3+roffset];
             lenadata[((i+4)*512+j+60)*3+goffset]=waterdata[(i*180+j)*3+goffset];
