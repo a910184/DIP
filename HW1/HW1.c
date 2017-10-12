@@ -34,7 +34,7 @@ typedef struct bmpheader
 
 int main()
 {
-     FILE * lenaimage =fopen("lena_reverse_drink.bmp","rb");
+     FILE * lenaimage =fopen("lena.bmp","rb");
      FILE * output = fopen("output.bmp","wb");
      FILE * waterimage = fopen("water.bmp", "rb");
      if(!lenaimage||!waterimage) {
