@@ -54,21 +54,28 @@ int main()
 
     int ans;
     uint8_t *data;
-    printf("1.reverse 2.cover water 3.gray\n" );
+    printf("1.reverse + gray 2.reverse + cover water + gray 3.reverse 4.reverse + cover\n" );
     scanf("%d",&ans);
     switch (ans) {
         case 1:
         lenadata=reverse(&lena,lenadata);
+        lenadata=gray(&lena,lenadata);
         data = lenadata;
         break;
         case 2:
+        lenadata=reverse(&lena,lenadata);
         data=cover(&lena,lenadata,&water,waterdata);
-        break;
-        case 3:
         lenadata=gray(&lena,lenadata);
         data=lenadata;
         break;
-    }
+        case 3:
+        data=reverse(&lena,lenadata);
+        break;
+        case 4:
+        lenadata=reverse(&lena,lenadata);
+        data=cover(&lena,lenadata,&water,waterdata);
+        break;
+        }
 
     bmpwrite(&lena,output,data);
 
