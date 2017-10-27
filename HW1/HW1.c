@@ -122,12 +122,12 @@ uint8_t *gray(bmp *image,uint8_t* data){ // 相鄰3個照公式相加後取代RG
 uint8_t *reverse(bmp *image,uint8_t* data){
     int i,j,k;
     uint8_t *out = malloc((image->height)*(image->width)*((image->bits_per_pixel)/8));
-    for(i=0;i<=(image->height);i=i+1){
-        for(j=(image->width),k=0;j>0;j--,k++){
+    for(i=0;i<=(image->height);i++){
+        for(j=(image->width),k=0;j>=0;j--,k++){
             // printf("i %d j %d k %d\n",i,j,k );
-            out[(i*(image->height)+k)*((image->bits_per_pixel)/8)+goffset]=data[(j+i*(image->height))*((image->bits_per_pixel)/8)+goffset];
-            out[(i*(image->height)+k)*((image->bits_per_pixel)/8)+roffset]=data[(j+i*(image->height))*((image->bits_per_pixel)/8)+roffset];
-            out[(i*(image->height)+k)*((image->bits_per_pixel)/8)+boffset]=data[(j+i*(image->height))*((image->bits_per_pixel)/8)+boffset];
+            out[(i*(image->height)+k)*((image->bits_per_pixel)/8)+goffset]=data[(j+i*(image->height))*((image->bits_per_pixel)/8)+goffset-3];
+            out[(i*(image->height)+k)*((image->bits_per_pixel)/8)+roffset]=data[(j+i*(image->height))*((image->bits_per_pixel)/8)+roffset-3];
+            out[(i*(image->height)+k)*((image->bits_per_pixel)/8)+boffset]=data[(j+i*(image->height))*((image->bits_per_pixel)/8)+boffset-3];
         }
     }
     return out;
