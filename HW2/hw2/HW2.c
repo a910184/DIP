@@ -21,7 +21,7 @@ uint8_t answer1[512*512];
 uint8_t answer2[512*512];
 uint8_t answer3[512*512];
 float redata[512][512],imdata[512][512],fourre[512][512],fourim[512][512];
-
+float max=0;
 typedef struct bmpheader {
       uint16_t id;
       uint32_t filesize;
@@ -89,6 +89,7 @@ return 1;
 }
 void bia(bmp *image,uint8_t *data){
 
+
     for (int i = 0; i < 512; ++i)
 	{
 		for (int j=0; j<512; ++j){
@@ -128,28 +129,35 @@ int M = image->height,N = image ->width;
 
      for(int x=0,v=0;x<512;x++){
             for(v=0;v<512;v++){
-                odata[x*512+v]=log(1+fourre[x][v]*fourre[x][v]+fourim[x][v]*fourim[x][v]);
+                odata[x*512+v]=sqrt(fourre[x][v]*fourre[x][v]+fourim[x][v]*fourim[x][v]);
 
             }
         }
 
-float max=0;
-    for(int x=0;x<512*512;x++){ //normalize maximum
+        for(int x=0;x<512*512;x++){ //normalize maximum
 
-            if(max>odata[x]){
-                max=max;
+                if(max>odata[x]){
+                    max=max;
+                }
+                else{
+                max = odata[x];
+                }
             }
-            else{
-            max = odata[x];
-            }
-        }
+    printf("max:%f ",max);
+    max=255.0/(log(1+max));
+    printf("max:%f ",max);
 
-printf("%f\n",max);
-max=255.0/(log(1+max));
-printf("%f\n",max);
+    for(int x=0,v=0;x<512;x++){
+           for(v=0;v<512;v++){
+               odata[x*512+v]=max*log(1+sqrt(fourre[x][v]*fourre[x][v]+fourim[x][v]*fourim[x][v]));
+
+           }
+       }
+
+
 for(int x=0,v=0;x<512;x++){
        for(v=0;v<512;v++){
-           outputdata[x*512+v]=(uint8_t)ceil(5*odata[x*512+v])-1;
+           outputdata[x*512+v]=(uint8_t)(odata[x*512+v]);
 
        }
    }
